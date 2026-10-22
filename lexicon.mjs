@@ -1,9 +1,17 @@
 // Lazy loader for the dictionary chunks in dict/. Only the files needed for a text are fetched.
 export function createLexicon(baseUrl = './dict/', fetchJson = (u) => fetch(u).then((r) => { if (!r.ok) throw new Error(`Could not load ${u}`); return r.json(); })) {
   let index = null;
+  let common = new Set();
+  const COMMON = [99, []];
   const files = new Map(); // file name -> Promise<object>
   const entries = new Map();
-  async function ensureIndex() { if (!index) index = await fetchJson(`${baseUrl}index.json`); return index; }
+  async function ensureIndex() {
+    if (!index) {
+      index = await fetchJson(`${baseUrl}index.json`);
+      if (index.common) common = new Set(await fetchJson(`${baseUrl}${index.common}`));
+    }
+    return index;
+  }
   return {
     async load(prefixes) {
       const idx = await ensureIndex();
@@ -13,7 +21,8 @@ export function createLexicon(baseUrl = './dict/', fetchJson = (u) => fetch(u).t
         return files.get(n);
       }));
     },
-    lookup: (lemma) => entries.get(lemma),
+    /** Entry for a lemma; common everyday words return a marker with no senses (never highlighted). */
+    lookup: (lemma) => entries.get(lemma) ?? (common.has(lemma) ? COMMON : undefined),
     get source() { return index ? index.source : ''; },
     get loadedFiles() { return files.size; },
   };

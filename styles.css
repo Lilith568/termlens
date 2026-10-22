@@ -1,3 +1,4 @@
+[hidden] { display: none !important; }
 :root {
   --paper: #fbfaf6; --sheet: #ffffff; --ink: #1f2328; --muted: #646b73; --line: #e8e4da;
   --mark: #ffe27a; --mark-soft: #fff3c2; --learned: #cfe8d6; --learned-ink: #1d5b35; --accent: #23405e;

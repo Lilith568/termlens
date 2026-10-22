@@ -72,7 +72,7 @@ export function findTerms(text, lookup, { maxZipf = 3.6 } = {}) {
       const head = span.slice(0, -1).map((t) => t.lower).join(' ');
       for (const last of lemmaCandidates(span[n - 1].text)) {
         const e = lookup(`${head} ${last}`);
-        if (e) { found = { start: span[0].start, end: span[n - 1].end, surface: text.slice(span[0].start, span[n - 1].end), lemma: `${head} ${last}`, zipf: e[0], senses: e[1], words: n }; break; }
+        if (e && e[1].length) { found = { start: span[0].start, end: span[n - 1].end, surface: text.slice(span[0].start, span[n - 1].end), lemma: `${head} ${last}`, zipf: e[0], senses: e[1], words: n }; break; }
       }
     }
     if (!found) {
@@ -84,7 +84,7 @@ export function findTerms(text, lookup, { maxZipf = 3.6 } = {}) {
       }
     }
     if (found) {
-      if (found.zipf < maxZipf) terms.push(found);
+      if (found.zipf < maxZipf && found.senses.length) terms.push(found);
       i += found.words - 1;
     }
   }
