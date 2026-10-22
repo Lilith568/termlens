@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TermLens app map</title>
+<style>
+  :root { --paper:#fbfaf6; --ink:#1f2328; --muted:#646b73; --line:#e8e4da; --mark:#ffe27a; }
+  body { margin:0; background:var(--paper); color:var(--ink); font:15px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width:880px; margin:0 auto; padding:28px 20px 40px; }
+  h1 { font-family:Georgia, serif; margin:0 0 4px; } h2 { font-size:17px; margin:26px 0 8px; }
+  .muted { color:var(--muted); }
+  ol.flow { list-style:none; padding:0; display:grid; gap:8px; }
+  ol.flow li { background:#fff; border:1px solid var(--line); border-radius:12px; padding:10px 14px; }
+  ol.flow b { background:linear-gradient(transparent 60%, var(--mark) 60%); }
+  code { background:#f1eee6; padding:1px 5px; border-radius:5px; font-size:13px; }
+  details { background:#fff; border:1px solid var(--line); border-radius:12px; padding:10px 14px; margin:8px 0; }
+  summary { cursor:pointer; font-weight:600; }
+  svg { width:100%; height:auto; }
+</style>
+</head>
+<body><main>
+<h1>TermLens: app map</h1>
+<p class="muted">A take-home guide to what you built: follow one click from your text to the explanation card.</p>
+
+<h2>The path of one paragraph</h2>
+<svg viewBox="0 0 860 120" role="img" aria-label="Text flows to term finder, dictionary, meaning picker and card">
+  <g font-family="system-ui" font-size="13" text-anchor="middle">
+    <rect x="5" y="35" width="140" height="50" rx="10" fill="#fff" stroke="#e8e4da"/><text x="75" y="65">Your text</text>
+    <rect x="180" y="35" width="150" height="50" rx="10" fill="#fff3c2" stroke="#e8e4da"/><text x="255" y="57">Term finder</text><text x="255" y="74" fill="#646b73">text.mjs · findTerms</text>
+    <rect x="365" y="5" width="140" height="40" rx="10" fill="#fff" stroke="#e8e4da"/><text x="435" y="30">dict/ (lazy)</text>
+    <rect x="365" y="70" width="150" height="50" rx="10" fill="#fff3c2" stroke="#e8e4da"/><text x="440" y="92">Meaning picker</text><text x="440" y="109" fill="#646b73">rankSenses (Lesk)</text>
+    <rect x="550" y="35" width="140" height="50" rx="10" fill="#fff" stroke="#e8e4da"/><text x="620" y="65">Explanation card</text>
+    <rect x="720" y="35" width="135" height="50" rx="10" fill="#cfe8d6" stroke="#e8e4da"/><text x="787" y="65">Glossary → CSV</text>
+  </g>
+  <g stroke="#1f2328" stroke-width="1.5" fill="none" marker-end="url(#a)"><path d="M145 60H178"/><path d="M330 55L363 30"/><path d="M330 65L363 90"/><path d="M515 90L548 65"/><path d="M690 60H718"/></g>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f2328"/></marker></defs>
+</svg>
+
+<h2>Three places in the code</h2>
+<ol class="flow">
+  <li><b>1. Finding terms</b>: <code>text.mjs → findTerms()</code>. Tries 3- and 2-word phrases first, then single words in their dictionary form (<code>lemmaCandidates()</code>). A word counts as difficult when its frequency score (zipf) is below the slider value.</li>
+  <li><b>2. Choosing the meaning</b>: <code>text.mjs → rankSenses()</code>. This is the simplified Lesk algorithm: every meaning gets one point per word its definition and example share with the sentences around the term. <code>posHint()</code> adds a hint from the word form ("diffuses" → verb or noun).</li>
+  <li><b>3. Showing it</b>: <code>app.js → showCard()</code>. Takes the top-ranked meaning and builds the card. "Add to glossary" calls <code>glossary.mjs → add()</code>, which saves it in your browser.</li>
+</ol>
+
+<details><summary>Try a safe edit (optional)</summary>
+<p>In <code>index.html</code>, change <code>value="3.6"</code> on the <code>#level</code> slider to <code>value="3.0"</code>. Reload: fewer words are highlighted at the start. Change it back afterwards, or keep it if you prefer.</p>
+</details>
+<details><summary>Why Lesk is a good first step (and its limits)</summary>
+<p>It needs no training data and is fully explainable: the card even shows which words matched. Its limit is short definitions with few shared words. A modern next step would be comparing sentence embeddings, which is a nice small ML project for later.</p>
+</details>
+
+<h2>Run and test</h2>
+<p><code>python3 -m http.server 8000</code> → open <code>http://localhost:8000</code> · tests: <code>node --test tests/text.test.mjs</code></p>
+</main></body>
+</html>
