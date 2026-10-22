@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TermLens: understand your course material</title>
+  <meta name="description" content="Paste a paragraph of course material. TermLens highlights the difficult terms, explains each one in context and builds your personal glossary. Runs in your browser.">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <a class="skip" href="#reader">Skip to the reader</a>
+  <header class="top">
+    <div class="brand"><span class="lens" aria-hidden="true"></span>TermLens</div>
+    <p class="tagline">Paste your course material. The words that block you light up. One click explains them.</p>
+  </header>
+
+  <main class="layout">
+    <section class="main-col" aria-label="Reader">
+      <div class="paper" id="input-view">
+        <label for="input" class="label">Your text</label>
+        <textarea id="input" rows="9" placeholder="Paste a paragraph from your lecture notes, script or textbook…"></textarea>
+        <div class="row">
+          <button class="btn ghost" id="sample">Try a sample paragraph</button>
+          <button class="btn primary" id="explain">Explain terms</button>
+        </div>
+      </div>
+
+      <div class="paper" id="reader-view" hidden>
+        <div class="toolbar">
+          <div class="count" id="count" role="status"></div>
+          <div class="slider">
+            <label for="level">Easier</label>
+            <input type="range" id="level" min="2.2" max="4.4" step="0.1" value="3.6" aria-describedby="level-help">
+            <label for="level">Harder</label>
+            <span class="sr-only" id="level-help">Move right to treat more words as difficult.</span>
+          </div>
+          <label class="switch"><input type="checkbox" id="simplify"> <span>Simplify</span></label>
+          <button class="btn ghost small" id="edit">Edit text</button>
+        </div>
+        <div class="scores" id="scores" hidden></div>
+        <div id="reader" class="reader" tabindex="-1" aria-label="Your text with difficult terms"></div>
+        <p class="hint" id="hint"></p>
+      </div>
+    </section>
+
+    <aside class="side-col" aria-label="Explanation and glossary">
+      <section class="card" id="card" aria-live="polite">
+        <p class="placeholder">Click a highlighted term to see what it means here.</p>
+      </section>
+      <section class="glossary">
+        <div class="gl-head"><h2>Your glossary <span id="gl-count"></span></h2>
+          <div class="row tight"><button class="btn small" id="export">Export flashcards</button><button class="btn ghost small" id="clear">Clear</button></div>
+        </div>
+        <ul id="gl-list"></ul>
+        <p class="hint" id="gl-empty">Your glossary is empty. Click a highlighted term to start.</p>
+      </section>
+    </aside>
+  </main>
+
+  <footer class="foot">
+    Explanations from <a href="https://github.com/globalwordnet/english-wordnet">Open English WordNet</a> (CC BY 4.0), word frequencies from <a href="https://github.com/rspeer/wordfreq">wordfreq</a> (CC BY-SA 4.0). Your text never leaves your browser. ·
+    <a href="https://github.com/Lilith568/termlens">Source code</a>
+  </footer>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

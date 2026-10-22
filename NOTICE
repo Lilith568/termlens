@@ -1,0 +1,10 @@
+TermLens
+Code: MIT License (see LICENSE), Copyright (c) 2026 Lilith Moritz.
+
+Dictionary data in dict/ is derived from:
+- Open English WordNet, 2024 edition, https://github.com/globalwordnet/english-wordnet
+  License: Creative Commons Attribution 4.0 (CC BY 4.0).
+- wordfreq word frequencies, https://github.com/rspeer/wordfreq
+  Data license: Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0).
+The generated files in dict/ are therefore shared under CC BY-SA 4.0.
+They were produced with scripts/build_dictionary.py.

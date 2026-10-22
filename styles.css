@@ -1,0 +1,59 @@
+:root {
+  --paper: #fbfaf6; --sheet: #ffffff; --ink: #1f2328; --muted: #646b73; --line: #e8e4da;
+  --mark: #ffe27a; --mark-soft: #fff3c2; --learned: #cfe8d6; --learned-ink: #1d5b35; --accent: #23405e;
+  --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+  --sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.5; }
+a { color: var(--accent); }
+.skip { position: absolute; left: -999px; } .skip:focus { left: 12px; top: 12px; background: #fff; padding: 8px; z-index: 9; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.top { max-width: 1180px; margin: 0 auto; padding: 28px 28px 8px; }
+.brand { font-family: var(--serif); font-size: 28px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+.lens { width: 22px; height: 22px; border-radius: 50%; border: 3px solid var(--ink); position: relative; display: inline-block; background: var(--mark-soft); }
+.lens::after { content: ""; position: absolute; width: 10px; height: 3px; background: var(--ink); right: -9px; bottom: -4px; transform: rotate(45deg); border-radius: 2px; }
+.tagline { margin: 4px 0 0; color: var(--muted); font-size: 16px; }
+.layout { max-width: 1180px; margin: 0 auto; padding: 16px 28px 30px; display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 24px; align-items: start; }
+.paper { background: var(--sheet); border: 1px solid var(--line); border-radius: 14px; padding: 22px 26px; box-shadow: 0 1px 2px rgba(0,0,0,.03), 0 8px 24px rgba(31,35,40,.04); }
+.label { display: block; font-weight: 600; margin-bottom: 8px; }
+textarea { width: 100%; font: 18px/1.65 var(--serif); color: var(--ink); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; resize: vertical; background: var(--paper); }
+textarea:focus-visible, button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.row { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; margin-top: 12px; } .row.tight { margin: 0; gap: 6px; }
+.btn { font: inherit; font-weight: 600; padding: 9px 16px; border-radius: 10px; border: 1px solid var(--line); background: #fff; color: var(--ink); cursor: pointer; }
+.btn:hover { border-color: #cfc8b8; } .btn.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+.btn.ghost { background: transparent; } .btn.small { padding: 6px 11px; font-size: 13px; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid var(--line); margin-bottom: 14px; }
+.count { font-weight: 600; }
+.slider { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px; } .slider input { accent-color: var(--ink); width: 150px; }
+.switch { display: inline-flex; gap: 6px; align-items: center; font-weight: 600; cursor: pointer; } .switch input { accent-color: var(--ink); width: 16px; height: 16px; }
+.scores { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; font-size: 13px; }
+.score { background: var(--paper); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; } .score b { font-size: 15px; }
+.score.up { background: var(--learned); border-color: #b5d9bf; color: var(--learned-ink); }
+.reader { font: 19px/1.8 var(--serif); white-space: pre-wrap; }
+.term { font: inherit; color: inherit; background: linear-gradient(transparent 58%, var(--mark) 58%); border: 0; padding: 0 1px; margin: 0; cursor: pointer; border-radius: 2px; }
+.term:hover, .term.active { background: var(--mark); }
+.term.learned { background: linear-gradient(transparent 58%, var(--learned) 58%); }
+.term.learned.active { background: var(--learned); }
+.swap { background: var(--learned); border-radius: 3px; padding: 0 2px; cursor: help; text-decoration: underline dotted var(--learned-ink); }
+.hint { color: var(--muted); font-size: 14px; margin: 12px 0 0; }
+.card { background: var(--sheet); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; box-shadow: 0 8px 24px rgba(31,35,40,.05); position: sticky; top: 16px; }
+.placeholder { color: var(--muted); margin: 0; }
+.card h2 { font-family: var(--serif); font-size: 24px; margin: 0; }
+.meta { color: var(--muted); font-size: 13px; margin: 2px 0 12px; }
+.explain { font-size: 16px; margin: 0 0 12px; }
+.ex { font-family: var(--serif); font-style: italic; color: #3b4148; border-left: 3px solid var(--mark); padding-left: 10px; margin: 0 0 12px; }
+.facts { list-style: none; padding: 0; margin: 0 0 12px; font-size: 14px; } .facts li { margin: 4px 0; } .facts b { font-weight: 600; }
+details.others { font-size: 14px; margin: 8px 0 12px; } details.others summary { cursor: pointer; color: var(--accent); font-weight: 600; }
+details.others li { margin: 6px 0; }
+.source { color: var(--muted); font-size: 12px; margin: 10px 0 0; }
+.glossary { margin-top: 18px; }
+.gl-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.gl-head h2 { font-size: 15px; margin: 0; } #gl-count { color: var(--muted); font-weight: 400; }
+#gl-list { list-style: none; padding: 0; margin: 10px 0 0; }
+#gl-list li { background: var(--sheet); border: 1px solid var(--line); border-radius: 10px; padding: 9px 12px; margin-bottom: 8px; font-size: 14px; display: flex; justify-content: space-between; gap: 8px; }
+#gl-list b { font-family: var(--serif); font-size: 15px; } #gl-list small { display: block; color: var(--muted); }
+.x { border: 0; background: none; color: var(--muted); cursor: pointer; font-size: 18px; line-height: 1; }
+.foot { max-width: 1180px; margin: 0 auto; padding: 0 28px 28px; color: var(--muted); font-size: 12px; }
+@media (max-width: 900px) { .layout { grid-template-columns: 1fr; } .card { position: static; } }
+@media (max-width: 520px) { .top, .layout, .foot { padding-left: 16px; padding-right: 16px; } .paper { padding: 18px 16px; } }
